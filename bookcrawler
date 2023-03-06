@@ -1,0 +1,16 @@
+data <- read.csv("bookdata.csv")
+head(data)
+
+# Filter the original data frame to include only Ohio and OH rows
+ohio_rows <- data[grep("Ohio", data$companyLocation),]
+oh_rows <- data[grep("\\bOH\\b", data$companyLocation, ignore.case = TRUE),]
+
+# Combine the Ohio and OH rows into one data frame
+ohiooh_rows <- rbind(ohio_rows, oh_rows)
+
+# Extract a vector of unique company names from the combined data frame
+company_names <- unique(ohiooh_rows$companyName)
+
+# Create a report that lists all the companies in the combined data frame
+cat("Companies with Ohio or OH presence:\n")
+cat(paste(company_names, collapse = "\n"))
