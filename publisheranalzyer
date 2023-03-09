@@ -1,0 +1,48 @@
+data <- read.csv("bookdata2.csv")
+
+
+data <- data[!duplicated(data),]
+
+# Replace "data" with the name of your own data frame
+data <- data[, !colnames(data) %in% c("Title_link")]
+
+# Replace "data" with the name of your own data frame
+#data <- data[, !colnames(data) %in% c("Publisherprofile")]
+
+# Replace "data" with the name of your own data frame
+#data <- data[, !colnames(data) %in% c("item")]
+
+
+# Replace "data" with the name of your own data frame
+
+# Search for publishers located in New York, United States
+matched_rows <- grepl("columbus", tolower(data$item.explanation)) & grepl("united states", tolower(data$item.explanation))
+matched_data <- data[matched_rows, ]
+
+# Count the number of matched rows
+#n_matched_rows <- nrow(matched_data)
+
+# Print the number of matched rows and the matched data
+print(paste0("Number of matched rows: ", n_matched_rows))
+print(matched_data)
+
+
+
+
+
+
+
+
+
+# Replace "data" with the name of your own data frame
+
+# Search for the word "ohio" in the "item" column
+#matched_rows <- grepl("ohio", tolower(data$item))
+#matched_data <- data[matched_rows, ]
+
+# Count the number of matched rows
+#n_matched_rows <- nrow(matched_data)
+
+# Print the number of matched rows and the matched data
+#print(paste0("Number of matched rows: ", n_matched_rows))
+#print(matched_data)
