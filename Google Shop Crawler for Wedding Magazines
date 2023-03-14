@@ -1,0 +1,19 @@
+# Find the row indices containing "ebay"
+ebay_rows <- grep("ebay", store_df$store, ignore.case = TRUE)
+
+# Replace the store names with "eBay"
+store_df$store[ebay_rows] <- "eBay"
+
+# Count the number of occurrences of each store
+store_counts <- table(new_data$store)
+
+# Create a data frame with the store counts
+store_df <- data.frame(store = names(store_counts), count = store_counts)
+
+
+# Remove the count.Var1 column
+store_df <- select(store_df, store, count.Freq)
+
+# Print the resulting data frame
+print(store_df)
+
