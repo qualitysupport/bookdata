@@ -1,0 +1,47 @@
+library(shiny)
+library(ggplot2)
+
+# Define UI for application
+ui <- fluidPage(
+  
+  # App title
+  titlePanel("Book Types Analysis"),
+  
+  # Sidebar with file input
+  sidebarLayout(
+    sidebarPanel(
+      fileInput("file_input", "Upload your file"),
+      helpText("Acceptable formats: .csv")
+    ),
+    # Main panel with chart
+    mainPanel(
+      plotOutput("chart")
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  
+  # Read the input file and display the chart
+  output$chart <- renderPlot({
+    # Load the data from the input file
+    data <- read.csv(input$file_input$datapath)
+    # Extract the a.text.bold column from the data frame
+    book_types <- data$a.text.bold
+    # Use the table() function to count the number of occurrences of each book type
+    type_counts <- table(book_types)
+    # Convert the type_counts table to a data frame
+    type_df <- as.data.frame(type_counts)
+    # Rename the columns of the data frame
+    names(type_df) <- c("Book Type", "Count")
+    # Create a bar chart using ggplot2
+    ggplot(type_df, aes(x = `Book Type`, y = Count)) + 
+      geom_bar(stat = "identity") + 
+      labs(title = "Number of books by type", x = "Book Type", y = "Count")
+  })
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
